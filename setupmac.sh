@@ -86,10 +86,18 @@ else
   #  commands above
 fi
 
-echo "Checking for bitwarden"
-if cmd_exists bw; then
-  echo "Bitwarden exists"
+echo "Checking for jq"
+if cmd_exists jq; then
+  echo "jq exists"
 else
-  echo "Installing Bitwarden (cli)"
-  brew install bitwarden-cli
+  echo "Installing jq"
+  brew install jq
+fi
+
+echo "Checking for bitwarding"
+  if cmd_exists bw; then
+    echo "Bitwarden exists"
+  else
+    echo "Installing Bitwarden (cli)"
+    brew install bitwarden-cli
 fi
