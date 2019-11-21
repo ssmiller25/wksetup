@@ -74,6 +74,9 @@ cp zshrc ${HOME}/.zshrc
 chmod 755 ${HOME}/.zshrc
 cp zshrc.d/* ${HOME}/.zshrc.d/
 
+h1 "Install custom vimrc"
+cp configs/vimrc ${HOME}/.vimrc 
+
 
 h1 "Install iTerm"
 if dir_exists "/Applications/iTerm.app"; then
