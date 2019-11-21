@@ -10,19 +10,45 @@ cmd_exists() {
   CMDTOSEARCH=${1:?"Must pass command to cmd_exist"}
   which ${CMDTOSEARCH} > /dev/null 2>&1
 }
+h1() {
+  HEADER=${1:?"Must pass header"}
+  echo ""
+  echo "==================================="
+  echo "   ${HEADER}"
+  echo "==================================="
+  echo ""
+}
 
 # MAIN
 
-echo "Step 0: Change shell"
+h1 "Change hostname"
 
-echo "Changing shell to zshell"
+if sudo scutil --get HostName >/dev/null 2>&1; then
+  echo "Current Hostnames:"
+  sudo scutil --get HostName 
+  sudo scutil --get LocalHostName 
+  sudo scutil --get ComputerName 
+else
+  echo "Setting hostname to rory-mac"
+  sudo scutil --set HostName rory-mac.r15cookie.lan
+  sudo scutil --set LocalHostName rory-mac
+  sudo scutil --set ComputerName rory-mac
+  dscacheutil -flushcache
+  echo "Hostname change.  Reboot the machine, then run this script to continue"
+  echo "Press enter to continue"
+  read nothing
+  exit 0
+fi
+
+h1 "Change shell to zsh"
+
 if [ "$SHELL" == "/bin/zsh" ]; then
   echo "Already set to zshell, great!"
 else
   chsh -s /bin/zsh
 fi
 
-echo "Step 0.25: ssh-key"
+h1 "Setup ssh-key"
 if dir_exists "${HOME}/.ssh"; then
   echo "SSH config directory exists, assuming all is setup"
 else
@@ -30,22 +56,26 @@ else
   ssh-keygen -b 4096
 fi
 
-echo "Set 0.5: Inital zsh environment"
-if dir_exists "${HOME}/tmp"; then
+h1 "Setup inital zsh environment"
+if ! dir_exists "${HOME}/tmp"; then
   echo "Making temp directory in home"
   mkdir ${HOME}/tmp
 fi
 
-if dir_exists "${HOME}/.zshrc"; then
-  echo "zshrc already exists"
-else
-  # Create directory to run individual components  
-  mkdir ${HOME}/.zshrc.d
-  cp zshrc ${HOME}/.zshrc
-  chmod 755 ${HOME}/.zshrc
-fi
 
-echo "Step 1: Good terminal"
+  # Create directory to run individual components  
+if dir_exists "${HOME}/.zshrc"; then
+  mkdir ${HOME}/.zshrc.d
+fi
+# ALWAYS syncing startup files and directories.  Will leave anything in 
+#  There already alone
+
+cp zshrc ${HOME}/.zshrc
+chmod 755 ${HOME}/.zshrc
+cp zshrc.d/* ${HOME}/.zshrc.d/
+
+
+h1 "Install iTerm"
 if dir_exists "/Applications/iTerm.app"; then
   echo "Good, already installed"
 else
@@ -53,7 +83,7 @@ else
   echo "  iterm2 (drag/drop into Application)"
 fi
 
-echo "Step 2: brew"
+h1 "Install brew"
 if cmd_exists brew; then
   echo "Brew already installed"
 else
@@ -61,7 +91,7 @@ else
   /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 fi
 
-echo "Step 3: docker and extras"
+h1 "Install docker and prereq"
 if cmd_exists docker; then
   echo "Docker already installed"
 else
@@ -86,7 +116,7 @@ else
   #  commands above
 fi
 
-echo "Checking for jq"
+h1 "Installing jq"
 if cmd_exists jq; then
   echo "jq exists"
 else
@@ -94,7 +124,7 @@ else
   brew install jq
 fi
 
-echo "Checking for bitwarding"
+h1 "Installing bitwarding"
   if cmd_exists bw; then
     echo "Bitwarden exists"
   else
