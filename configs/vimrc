@@ -1,0 +1,18 @@
+set autoindent
+set ruler "show current position
+set showmatch "show matching brackes
+set shiftwidth=4
+set tabstop=4
+set softtabstop=4 "Makes groups of four spaces act like tab
+set expandtab "expand tabs to spaces
+set number "Show line numbers
+set nobackup "Really don't like backup files everywhere
+
+" Only do this part when compiled with support for autocommands.
+if has("autocmd")
+    " Use filetype detection and file-based automatic indenting.
+    filetype plugin indent on
+
+    " Use actual tab chars in Makefiles.
+    autocmd FileType make set tabstop=8 shiftwidth=8 softtabstop=0 noexpandtab
+endif
