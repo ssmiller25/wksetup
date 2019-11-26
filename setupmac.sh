@@ -70,9 +70,9 @@ fi
 # ALWAYS syncing startup files and directories.  Will leave anything in 
 #  There already alone
 
-cp zshrc ${HOME}/.zshrc
+cp configs/zshrc ${HOME}/.zshrc
 chmod 755 ${HOME}/.zshrc
-cp zshrc.d/* ${HOME}/.zshrc.d/
+cp configs/zshrc.d/* ${HOME}/.zshrc.d/
 
 h1 "Install custom vimrc"
 cp configs/vimrc ${HOME}/.vimrc 
