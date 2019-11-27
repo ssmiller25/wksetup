@@ -114,6 +114,11 @@ else
   docker-machine env default
   eval "$(docker-machine env default)"
 
+  # Make sure docker-machien starts be default.  Important for my immutable
+  #  desktop idea
+
+  brew services start docker-machine
+
   # During first install, had to manually bring up docker-machien with a 
   #  `docker-machine rm default` command, then rerunning the create and env
   #  commands above
