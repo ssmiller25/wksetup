@@ -139,3 +139,12 @@ h1 "Installing bitwarding"
     echo "Installing Bitwarden (cli)"
     brew install bitwarden-cli
 fi
+
+h1 "Installing nmap"
+  if cmd_exists nmap; then
+    echo "nmap exists"
+  else
+    echo "Installing nmap (cli)"
+    brew install nmap
+fi
+
