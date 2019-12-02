@@ -21,7 +21,7 @@ h1() {
 
 # MAIN
 
-h1 "Change hostname"
+h1 "Verifing hostname"
 
 if sudo scutil --get HostName >/dev/null 2>&1; then
   echo "Current Hostnames:"
@@ -84,6 +84,18 @@ if dir_exists "/Applications/iTerm.app"; then
 else
   echo "Go to https://www.iterm2.com/downloads.html and download/install"
   echo "  iterm2 (drag/drop into Application)"
+  echo "Press enter to continue"
+  read nothing
+fi
+
+h1 "Install Firefox"
+if dir_exists "/Applications/Firefox.app"; then
+  echo "Good, already installed"
+else
+  echo "Go to https://www.mozilla.org/en-US/firefox/new/ and download/install"
+  echo "  Firefox (drag/drop into Application)"
+  echo "Press enter to continue"
+  read nothing
 fi
 
 h1 "Install brew"
