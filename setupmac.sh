@@ -4,11 +4,11 @@
 
 dir_exists() {
   DIRTOSEARCH=${1:?"Must pass command to cmd_exist"}
-  test -d ${DIRTOSEARCH}
+  test -d "${DIRTOSEARCH}"
 }
 cmd_exists() {
   CMDTOSEARCH=${1:?"Must pass command to cmd_exist"}
-  which ${CMDTOSEARCH} > /dev/null 2>&1
+  command -v "${CMDTOSEARCH}" > /dev/null 2>&1
 }
 h1() {
   HEADER=${1:?"Must pass header"}
@@ -36,13 +36,13 @@ else
   dscacheutil -flushcache
   echo "Hostname change.  Reboot the machine, then run this script to continue"
   echo "Press enter to continue"
-  read nothing
+  read -r nothing
   exit 0
 fi
 
 h1 "Change shell to zsh"
 
-if [ "$SHELL" == "/bin/zsh" ]; then
+if [ "$SHELL" = "/bin/zsh" ]; then
   echo "Already set to zshell, great!"
 else
   chsh -s /bin/zsh
@@ -59,23 +59,23 @@ fi
 h1 "Setup inital zsh environment"
 if ! dir_exists "${HOME}/tmp"; then
   echo "Making temp directory in home"
-  mkdir ${HOME}/tmp
+  mkdir "${HOME}"/tmp
 fi
 
 
-  # Create directory to run individual components  
-if dir_exists "${HOME}/.zshrc"; then
-  mkdir ${HOME}/.zshrc.d
+# Create directory to run individual components  
+if ! dir_exists "${HOME}/.zshrc.d"; then
+  mkdir "${HOME}/.zshrc.d"
 fi
 # ALWAYS syncing startup files and directories.  Will leave anything in 
 #  There already alone
 
-cp configs/zshrc ${HOME}/.zshrc
-chmod 755 ${HOME}/.zshrc
-cp configs/zshrc.d/* ${HOME}/.zshrc.d/
+cp configs/zshrc "${HOME}/.zshrc"
+chmod 755 "${HOME}/.zshrc"
+cp configs/zshrc.d/* "${HOME}/.zshrc.d/"
 
 h1 "Install custom vimrc"
-cp configs/vimrc ${HOME}/.vimrc 
+cp configs/vimrc "${HOME}/.vimrc"
 
 
 h1 "Install iTerm"
@@ -85,7 +85,7 @@ else
   echo "Go to https://www.iterm2.com/downloads.html and download/install"
   echo "  iterm2 (drag/drop into Application)"
   echo "Press enter to continue"
-  read nothing
+  read -r nothing
 fi
 
 h1 "Install Firefox"
@@ -95,7 +95,7 @@ else
   echo "Go to https://www.mozilla.org/en-US/firefox/new/ and download/install"
   echo "  Firefox (drag/drop into Application)"
   echo "Press enter to continue"
-  read nothing
+  read -r nothing
 fi
 
 h1 "Install brew"
@@ -119,7 +119,7 @@ else
   echo "Under Security & Privacy, and General"
   echo "Press enter to continue"
   echo "========"
-  read nothing
+  read -r nothing
   # When I last tested, had to redo install after accpeting permission change
   brew cask install virtualbox
   docker-machine create --driver virtualbox default
