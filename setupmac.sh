@@ -106,35 +106,6 @@ else
   /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 fi
 
-h1 "Install docker and prereq"
-if cmd_exists docker; then
-  echo "Docker already installed"
-else
-  # Process from https://medium.com/@yutafujii_59175/a-complete-one-by-one-guide-to-install-docker-on-your-mac-os-using-homebrew-e818eb4cfc3
-  echo "Installing docker and extras"
-  brew install docker docker-machine
-  brew cask install virtualbox
-  echo "========"
-  echo "Possibly need to permit virtualbox to run. Check system preference"
-  echo "Under Security & Privacy, and General"
-  echo "Press enter to continue"
-  echo "========"
-  read -r nothing
-  # When I last tested, had to redo install after accpeting permission change
-  brew cask install virtualbox
-  docker-machine create --driver virtualbox default
-  docker-machine env default
-  eval "$(docker-machine env default)"
-
-  # Make sure docker-machien starts be default.  Important for my immutable
-  #  desktop idea
-
-  brew services start docker-machine
-
-  # During first install, had to manually bring up docker-machien with a 
-  #  `docker-machine rm default` command, then rerunning the create and env
-  #  commands above
-fi
 
 h1 "Installing jq"
 if cmd_exists jq; then
@@ -160,3 +131,11 @@ h1 "Installing nmap"
     brew install nmap
 fi
 
+h1 "Install vagrant and virtualbox"
+
+if cmd_exists vagrant; then
+    echo "Vagrant exists"
+else
+    echo "Installing vagrant and virtualbox"
+    brew cask install vagrant 
+fi
