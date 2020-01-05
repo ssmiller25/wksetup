@@ -139,3 +139,12 @@ else
     echo "Installing vagrant and virtualbox"
     brew cask install vagrant 
 fi
+
+h1 "Install ispell and dictionary file"
+  if cmd_exists ispell; then
+	  echo "ispell exists"
+  else
+    echo "Installing ispell"
+    brew install ispell
+    cp configs/ispell_default $HOME/.ispell_default
+  fi
