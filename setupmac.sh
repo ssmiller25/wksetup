@@ -148,3 +148,18 @@ h1 "Install ispell and dictionary file"
     brew install ispell
     cp configs/ispell_default $HOME/.ispell_default
   fi
+
+h1 "Install etcher for USB creation"
+   if dir_exists "/Applications/balenaEtcher.app"; then
+     echo "Etcher already installed"
+   else
+     brew cask install balenaetcher
+   fi
+
+h1 "Install Cura for 3d Cura"
+  if dir_exists "/Applications/Ultimaker Cura.app"
+      echo "Curl already installed"
+  else
+      brew cask install ultimaker-cura
+  fi
+
