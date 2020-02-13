@@ -63,3 +63,4 @@ fi
 
 # TODO: detect if in toolbox (has to run from root)
 # TODO: Detect I'm actually on Fedora silverblue
+# TODO: In toolbox, run `dnf install @development-tools` to install developer tools
