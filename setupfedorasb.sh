@@ -32,6 +32,15 @@ manual_step() {
   echo ${inst}"
   echo ""
 }
+
+flatpak_install() {
+  package=${1:?"Must pass flatpak install package"}
+  if flatpak info ${package} > /dev/null 2>&1; then
+    echo "${package} already installed"
+  else
+    flatpac -y install ${package}
+  fi
+}
 manual_step "Sign Into Firefox Central" "Open up firefox and log into firefox account"
 
 # For flathub, eventually migration to `flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo` command
