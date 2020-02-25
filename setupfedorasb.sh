@@ -70,6 +70,13 @@ else
   ssh-keygen -b 4096
 fi
 
+h3 "Allow scaling to incremental values (versus 100/200/300%)
+gsettings set org.gnome.mutter experimental-features "['scale-monitor-framebuffer']"
+
 # TODO: detect if in toolbox (has to run from root)
 # TODO: Detect I'm actually on Fedora silverblue
 # TODO: In toolbox, run `dnf install @development-tools` to install developer tools
+# TODO: Enabled "third party software repository" in GUI, but not sure how that
+maps.  Assuming something in flatpak, but it's not a new remote...
+
+
