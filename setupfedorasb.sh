@@ -76,6 +76,7 @@ gsettings set org.gnome.mutter experimental-features "['scale-monitor-framebuffe
 # TODO: detect if in toolbox (has to run from root)
 # TODO: Detect I'm actually on Fedora silverblue
 # TODO: In toolbox, run `dnf install @development-tools` to install developer tools
+# TODO: In toolbox, run `dnf install bc`
 # TODO: Enabled "third party software repository" in GUI, but not sure how that
 maps.  Assuming something in flatpak, but it's not a new remote...
 # TODO: civo toolbox: (or really, use buildah to build container...or somehow
@@ -83,4 +84,5 @@ maps.  Assuming something in flatpak, but it's not a new remote...
 #  sudo dnf install redhat-rpm-config
 #  dnf install @development-tools ruby ruby-devel
 #  sudo gem install civo_cli
+# TODO: Install GNOME Calculator Pak (GUI App)
 
