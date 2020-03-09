@@ -78,5 +78,9 @@ gsettings set org.gnome.mutter experimental-features "['scale-monitor-framebuffe
 # TODO: In toolbox, run `dnf install @development-tools` to install developer tools
 # TODO: Enabled "third party software repository" in GUI, but not sure how that
 maps.  Assuming something in flatpak, but it's not a new remote...
-
+# TODO: civo toolbox: (or really, use buildah to build container...or somehow
+#   integrat into toolbox framework
+#  sudo dnf install redhat-rpm-config
+#  dnf install @development-tools ruby ruby-devel
+#  sudo gem install civo_cli
 
