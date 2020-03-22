@@ -29,16 +29,16 @@ manual_step() {
   echo ""
   echo "### ${title}"
   echo ""
-  echo ${inst}"
+  echo "${inst}"
   echo ""
 }
 
 flatpak_install() {
   package=${1:?"Must pass flatpak install package"}
-  if flatpak info ${package} > /dev/null 2>&1; then
+  if flatpak info "${package}" > /dev/null 2>&1; then
     echo "${package} already installed"
   else
-    flatpac -y install ${package}
+    flatpac -y install "${package}"
   fi
 }
 manual_step "Sign Into Firefox Central" "Open up firefox and log into firefox account"
@@ -49,7 +49,7 @@ manual_step "Setup Flathub" "Go to https://flatpak.org/setup/Fedora/"
 # Set hostname
 h1 "Setting hostname"
 wkhostname=rory-mac.r15cookie.lan
-if [ "${HOSTNAME} -ne ${wkhostname} ]
+if [ "${HOSTNAME}" -ne "${wkhostname}" ]; then
   sudo hostnamectl set-hostname ${wkhostname}
 else
   echo "Hostname already set"
@@ -70,7 +70,7 @@ else
   ssh-keygen -b 4096
 fi
 
-h3 "Allow scaling to incremental values (versus 100/200/300%)
+h1 "Allow scaling to incremental values - versus 100/200/300%"
 gsettings set org.gnome.mutter experimental-features "['scale-monitor-framebuffer']"
 
 # TODO: detect if in toolbox (has to run from root)
@@ -78,12 +78,15 @@ gsettings set org.gnome.mutter experimental-features "['scale-monitor-framebuffe
 # TODO: In toolbox, run `dnf install @development-tools` to install developer tools
 # TODO: In toolbox, run `dnf install bc`
 # TODO: Enabled "third party software repository" in GUI, but not sure how that
-maps.  Assuming something in flatpak, but it's not a new remote...
+#  maps.  Assuming something in flatpak, but it's not a new remote...
 # TODO: civo toolbox: (or really, use buildah to build container...or somehow
 #   integrat into toolbox framework
 #  sudo dnf install redhat-rpm-config
 #  dnf install @development-tools ruby ruby-devel
 #  sudo gem install civo_cli
+# TODO: install shellcehck in toolbox
+#   sudo dnf install ShellCheck
+#   (and yes, that is case sensitive above!)
 # TODO: Install GNOME Calculator Pak (GUI App)
 # TODO: Instlal Wireshark (GUI app/pak)
 
