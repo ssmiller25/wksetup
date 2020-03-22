@@ -85,4 +85,5 @@ maps.  Assuming something in flatpak, but it's not a new remote...
 #  dnf install @development-tools ruby ruby-devel
 #  sudo gem install civo_cli
 # TODO: Install GNOME Calculator Pak (GUI App)
+# TODO: Instlal Wireshark (GUI app/pak)
 
