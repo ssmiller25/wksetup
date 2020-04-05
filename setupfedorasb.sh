@@ -89,4 +89,7 @@ gsettings set org.gnome.mutter experimental-features "['scale-monitor-framebuffe
 #   (and yes, that is case sensitive above!)
 # TODO: Install GNOME Calculator Pak (GUI App)
 # TODO: Instlal Wireshark (GUI app/pak)
-
+#  TODO: Install Zoom videoconference flatpak
+# TODO: Install balena-etcher-electron-1.5.80.x86_64.rpm using rpm-ostree  from 
+#  https://github.com/balena-io/etcher/releases  (bonus, pull down latest 
+#  version, as rpm-ostree doesn't really support yum/dnf repositories)
