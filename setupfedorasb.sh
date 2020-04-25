@@ -93,3 +93,6 @@ gsettings set org.gnome.mutter experimental-features "['scale-monitor-framebuffe
 # TODO: Install balena-etcher-electron-1.5.80.x86_64.rpm using rpm-ostree  from 
 #  https://github.com/balena-io/etcher/releases  (bonus, pull down latest 
 #  version, as rpm-ostree doesn't really support yum/dnf repositories)
+# TODO: toolbox auto-follow terminal disable (find it annoying...)  See
+#  https://github.com/containers/toolbox/issues/218 for issue and potential fix
+# TODO: Install vlc (flatpak)
