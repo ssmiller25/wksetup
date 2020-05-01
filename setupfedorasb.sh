@@ -73,6 +73,12 @@ fi
 h1 "Allow scaling to incremental values - versus 100/200/300%"
 gsettings set org.gnome.mutter experimental-features "['scale-monitor-framebuffer']"
 
+# TODO: Add ansible install to base
+#  sudo rpm-ostree install ansible  
+# TODO: Bootstrap immutabledesktop
+
+# Move MOST below into immutabledesktop repo
+
 # TODO: detect if in toolbox (has to run from root)
 # TODO: Detect I'm actually on Fedora silverblue
 # TODO: In toolbox, run `dnf install @development-tools` to install developer tools
@@ -96,3 +102,4 @@ gsettings set org.gnome.mutter experimental-features "['scale-monitor-framebuffe
 # TODO: toolbox auto-follow terminal disable (find it annoying...)  See
 #  https://github.com/containers/toolbox/issues/218 for issue and potential fix
 # TODO: Install vlc (flatpak)
+# TODO: Alas for code to "flatpak run com.visualstudio.code"
