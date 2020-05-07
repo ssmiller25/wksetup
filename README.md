@@ -1,6 +1,8 @@
 # Workstation setup
 
-My workstation setup repo.  Right now focused on Mac, but will eventually 
-expand to encompass ALL my desktop environments.
+My workstation setup repo.  Right now focused on Linux, but hopefully will
+encompass all the desktop environments I plan on using.
 
-Also not that most of the interesting configuration will occur in https://github.com/ssmiller25/immutabledesktop (still to be build out)
+This repo is primarily focused on getting the initial OS buildout done and
+in a state where the code in https://github.com/ssmiller25/immutabledesktop can
+be run.

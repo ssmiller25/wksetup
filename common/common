@@ -1,0 +1,34 @@
+# Common function code
+
+dir_exists() {
+  DIRTOSEARCH=${1:?"Must pass command to cmd_exist"}
+  test -d "${DIRTOSEARCH}"
+}
+
+cmd_exists() {
+  CMDTOSEARCH=${1:?"Must pass command to cmd_exist"}
+  command -v "${CMDTOSEARCH}" > /dev/null 2>&1
+}
+
+is_root() {
+  if [ $(id -u) != "0" ]; then
+    return 1
+  else
+    return 0
+  fi
+}
+
+h1() {
+  HEADER=${1:?"Must pass header"}
+  echo ""
+  echo "==================================="
+  echo "   ${HEADER}"
+  echo "==================================="
+  echo ""
+}
+
+error_exit() {
+  >&2 echo "Error: ${1}"
+  exit 1
+}
+
