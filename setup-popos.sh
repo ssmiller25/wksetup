@@ -3,6 +3,8 @@
 # Buildout Pop!_OS, and Ubuntu derivative.
 
 . common/common
+. common/setup_ssh
+. common/install_ansible
 
 popos_check() {
   if [ -r /etc/os-release ]; then
@@ -20,8 +22,8 @@ set_hostname() {
   if [ "$(hostname)" = "rory-mac" ]; then
     echo "Hostname already setup"
   else
-    echo "rory-mac" > /etc/hostname || exit_error "Cannot write to /etc/hostname"
-    sed -i 's/127.0.1.1.*/127.0.1.1  rory-mac.localdomain  rory-mac/' /etc/hosts || exit_error "Could not update /etc/hosts"
+    echo "rory-mac" | sudo tee /etc/hostname || exit_error "Cannot write to /etc/hostname"
+    sudo sed -i 's/127.0.1.1.*/127.0.1.1  rory-mac.localdomain  rory-mac/' /etc/hosts || exit_error "Could not update /etc/hosts"
     echo "Hostname set!"
     echo ""
     echo "PLEASE REBOOT, THEN CONTINUE!"
@@ -29,22 +31,20 @@ set_hostname() {
 }
 
 os_update() {
-  apt-get -y update
-  apt-get -y dist-upgrade
+  sudo apt-get -y update
+  sudo apt-get -y dist-upgrade
 }
 
-install_ansible() {
-  return 0
-
-}
 
 ### MAIN CODE Here
 
 popos_check || error_exit "PopOS Not detected.  Script only tested on Pop!_OS 20.04"
-is_root || error_exit "Please run this script as root: sudo ${0}"
+is_root && error_exit "Please run this script as your regular user"
 
 h1 "Check/Set Hostname"
 set_hostname || error_exit "Unable to set hostname"
+h1 "Setup SSH"
+setup_ssh
 h1 "Update OS"
 os_update || error_exit "Issue updating OS"
 h1 "Install ansible"

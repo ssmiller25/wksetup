@@ -1,8 +1,0 @@
-setup_ssh() {
-  if dir_exists "${HOME}/.ssh"; then
-    echo "SSH config directory exists, assuming all is setup"
-  else
-    echo "Generating security key for this system"
-    ssh-keygen -b 4096
-  fi
-}
