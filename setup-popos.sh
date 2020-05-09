@@ -4,7 +4,7 @@
 
 . common/common
 . common/setup_ssh
-. common/install_ansible
+. common/immutabledesktop
 
 popos_check() {
   if [ -r /etc/os-release ]; then
@@ -49,3 +49,5 @@ h1 "Update OS"
 os_update || error_exit "Issue updating OS"
 h1 "Install ansible"
 install_ansible || error_exit "Error installing ansible"
+h1 "Clone immutabledesktop repo"
+immutable_repo || error_exit "Could not clone the immutable desktop repo"

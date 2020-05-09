@@ -1,0 +1,19 @@
+#!/bin/sh
+
+# All supporting functions for immutable desktop.
+
+IMMUTABLEDESKTOP_DIR=${HOME}/git/ssmiller25/immutabledesktop/
+
+install_ansible() {
+  sudo apt-get -y install ansible
+}
+
+immutable_repo() {
+  if [ ! -d ${IMMUTABLEDESKTOP_DIR} ]; then
+    mkdir -p ${HOME}/git/ssmiller25
+    git clone git@github.com:ssmiller25/immutabledesktop.git ${IMMUTABLEDESKTOP_DIR}
+    return $?
+  else
+    return 0
+  fi
+}
