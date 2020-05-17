@@ -7,7 +7,7 @@ setup_ssh() {
     echo "Generating security key for this system"
     ssh-keygen -b 4096
     echo ""
-    echo "Please import the following public keypair into Github"
+    echo "Please import the following public keypair into Github and Gitlab"
     echo "before continuing!"
     echo ""
     cat "${HOME}/.ssh/id_rsa.pub"
