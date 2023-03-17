@@ -9,6 +9,14 @@
 # For Debugging
 #set -x
 
+if [ -z "$MYHOSTNAME" ]; then
+  MYHOSTNAME="rory-mac-2023"
+fi
+
+if [ -z "$MYDOMAIN" ]; then
+  MYDOMAIN="r15cookie.lan"
+fi
+
 dir_exists() {
   DIRTOSEARCH=${1:?"Must pass command to cmd_exist"}
   test -d "${DIRTOSEARCH}"
@@ -36,10 +44,10 @@ if sudo scutil --get HostName >/dev/null 2>&1; then
   sudo scutil --get LocalHostName 
   sudo scutil --get ComputerName 
 else
-  echo "Setting hostname to rory-mac"
-  sudo scutil --set HostName rory-mac.r15cookie.lan
-  sudo scutil --set LocalHostName rory-mac
-  sudo scutil --set ComputerName rory-mac
+  echo "Setting hostname to ${MYHOSTNAME}"
+  sudo scutil --set HostName ${MYHOSTNAME}.${MYDOMAIN}
+  sudo scutil --set LocalHostName ${MYHOSTNAME}
+  sudo scutil --set ComputerName ${MYHOSTNAME}
   dscacheutil -flushcache
   echo "Hostname change.  Reboot the machine, then run this script to continue"
   echo "Press enter to continue"
