@@ -82,7 +82,7 @@ if cmd_exists brew; then
   echo "Brew already installed"
 else
   echo "Installing brew"
-  /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 fi
 
 # h1 "Install iTerm"
