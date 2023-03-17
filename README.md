@@ -11,7 +11,9 @@ This repo is primarily focused on getting the initial OS buildout done and in a 
 3. In the "Terminal" app, run the following
 
 ```sh
- cd to the $HOME/Downloads/wksetup-*/`
+ cd $HOME/Downloads/wksetup-*/
+ chmod 755 setup-mac.sh
+ ./setup-mac.sh
 ```
 4. You may need to run the above several times in order to finish setup, as a few reboots are required.
 
