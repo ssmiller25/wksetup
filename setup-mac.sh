@@ -83,6 +83,8 @@ if cmd_exists brew; then
 else
   echo "Installing brew"
   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+  (echo; echo 'eval "$(/opt/homebrew/bin/brew shellenv)"') >> ${HOME}/.zprofile
+  eval "$(/opt/homebrew/bin/brew shellenv)"
 fi
 
 # h1 "Install iTerm"
@@ -163,3 +165,6 @@ fi
 #       brew cask install ultimaker-cura
 #   fi
 
+# h1 "Install Slack"
+
+# h1 "Install Colima"
