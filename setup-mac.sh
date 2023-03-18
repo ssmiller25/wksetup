@@ -152,3 +152,11 @@ if dir_exists "/Applications/Discord.app"; then
 else
   brew install --cask discord
 fi
+
+h1 "Install Rectangle"
+if dir_exists "/Applications/Rectangle.app"; then
+  echo "Rectangle already installed"
+else
+  brew install --cask rectangle
+fi
+
