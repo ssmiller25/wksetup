@@ -93,14 +93,14 @@ h1 "Install iTerm"
 if dir_exists "/Applications/iTerm.app"; then
   echo "iTerm already installed"
 else
-  brew cask install iterm2
+  brew install --cask iterm2
 fi
 
 h1 "Install Brave"
 if dir_exists "/Applications/Brave Browser.app"; then
   echo "Brave already installed"
 else
-  brew cask install iterm2
+  brew install cask brave-browser
 fi
 
 h1 "Installing jq"
@@ -124,18 +124,11 @@ else
   brew install nmap
 fi
 
-h1 "Install etcher for USB creation"
+h1 "Install balenaEtcher for USB creation"
 if dir_exists "/Applications/balenaEtcher.app"; then
   echo "Etcher already installed"
 else
-  brew cask install balenaetcher
-fi
-
-h1 "Install balenaEtcher"
-if dir_exists "/Applications/balenaEtcher.app"; then
-  echo "Etcher already installed"
-else
-  brew cask install balenaetcher
+  brew install --cask balenaetcher
 fi
 
 h1 "Install Colima"
