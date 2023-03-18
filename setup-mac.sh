@@ -135,7 +135,7 @@ h1 "Install Colima"
 if cmd_exists colima; then
   echo "Colima exists"
 else
-  brew install colima
+  brew install docker colima
 fi
 
 h1 "Install Slack"
