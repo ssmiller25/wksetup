@@ -87,84 +87,60 @@ else
   eval "$(/opt/homebrew/bin/brew shellenv)"
 fi
 
-# h1 "Install iTerm"
-# if dir_exists "/Applications/iTerm.app"; then
-#   echo "Good, already installed"
-# else
-#   echo "Go to https://www.iterm2.com/downloads.html and download/install"
-#   echo "  iterm2 (drag/drop into Application)"
-#   echo "Press enter to continue"
-#   read -r _
-# fi
-
-# h1 "Install Firefox"
-# if dir_exists "/Applications/Firefox.app"; then
-#   echo "Good, already installed"
-# else
-#   echo "Go to https://www.mozilla.org/en-US/firefox/new/ and download/install"
-#   echo "  Firefox (drag/drop into Application)"
-#   echo "Press enter to continue"
-#   read -r _
-# fi
 
 
+h1 "Install iTerm"
+if dir_exists "/Applications/iTerm.app"; then
+  echo "iTerm already installed"
+else
+  brew cask install iterm2
+fi
 
-# h1 "Installing jq"
-# if cmd_exists jq; then
-#   echo "jq exists"
-# else
-#   echo "Installing jq"
-#   brew install jq
-# fi
+h1 "Install Brave"
+if dir_exists "/Applications/Brave Browser.app"; then
+  echo "Brave already installed"
+else
+  brew cask install iterm2
+fi
 
-# h1 "Installing bitwarding"
-#   if cmd_exists bw; then
-#     echo "Bitwarden exists"
-#   else
-#     echo "Installing Bitwarden (cli)"
-#     brew install bitwarden-cli
-# fi
+h1 "Installing jq"
+if cmd_exists jq; then
+  echo "jq exists"
+else
+  brew install jq
+fi
 
-# h1 "Installing nmap"
-#   if cmd_exists nmap; then
-#     echo "nmap exists"
-#   else
-#     echo "Installing nmap (cli)"
-#     brew install nmap
-# fi
+h1 "Installing bitwarding"
+if cmd_exists bw; then
+  echo "Bitwarden exists"
+else
+  brew install bitwarden-cli
+fi
 
-# h1 "Install vagrant and virtualbox"
+h1 "Installing nmap"
+if cmd_exists nmap; then
+  echo "nmap exists"
+else
+  brew install nmap
+fi
 
-# if cmd_exists vagrant; then
-#     echo "Vagrant exists"
-# else
-#     echo "Installing vagrant and virtualbox"
-#     brew cask install vagrant 
-# fi
+h1 "Install etcher for USB creation"
+if dir_exists "/Applications/balenaEtcher.app"; then
+  echo "Etcher already installed"
+else
+  brew cask install balenaetcher
+fi
 
-# h1 "Install ispell and dictionary file"
-#   if cmd_exists ispell; then
-# 	  echo "ispell exists"
-#   else
-#     echo "Installing ispell"
-#     brew install ispell
-#     cp configs/ispell_default $HOME/.ispell_default
-#   fi
+h1 "Install balenaEtcher"
+if dir_exists "/Applications/balenaEtcher.app"; then
+  echo "Etcher already installed"
+else
+  brew cask install balenaetcher
+fi
 
-# h1 "Install etcher for USB creation"
-#    if dir_exists "/Applications/balenaEtcher.app"; then
-#      echo "Etcher already installed"
-#    else
-#      brew cask install balenaetcher
-#    fi
-
-# h1 "Install Cura for 3d Cura"
-#   if dir_exists "/Applications/Ultimaker Cura.app"; then
-#       echo "Curl already installed"
-#   else
-#       brew cask install ultimaker-cura
-#   fi
-
-# h1 "Install Slack"
-
-# h1 "Install Colima"
+h1 "Install Colima"
+if cmd_exists colima; then
+  echo "Colima exists"
+else
+  brew install colima
+fi
