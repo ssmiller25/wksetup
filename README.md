@@ -6,16 +6,13 @@ This repo is primarily focused on getting the initial OS buildout done and in a 
 
 ## Instructions - MacOS
 
-1. Use Safari to download a Zip archive of this repo (Click the "Code" button)
-2. Double click the downloaded Zip to extract
-3. In the "Terminal" app, run the following
+
+Run the following 
 
 ```sh
- cd $HOME/Downloads/wksetup-*/
- chmod 755 setup-mac.sh
- ./setup-mac.sh
+curl -fsSL  https://raw.githubusercontent.com/ssmiller25/wksetup/main/setup-mac.sh | sh
 ```
-4. You may need to run the above several times in order to finish setup, as a few reboots are required.
+You may need to run the above several times in order to finish setup, as a few reboots are required.
 
 ## Instructions - PopOS
 
