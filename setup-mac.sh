@@ -137,3 +137,10 @@ if cmd_exists colima; then
 else
   brew install colima
 fi
+
+h1 "Install Slack"
+if dir_exists "/Applications/balenaEtcher.app"; then
+  echo "Slack already installed"
+else
+  brew install --cask slack
+fi
