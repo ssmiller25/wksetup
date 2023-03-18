@@ -144,3 +144,10 @@ if dir_exists "/Applications/Slack.app"; then
 else
   brew install --cask slack
 fi
+
+h1 "Install Discord"
+if dir_exists "/Applications/Discord.app"; then
+  echo "Discord already installed"
+else
+  brew install --cask discord
+fi
