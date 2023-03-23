@@ -160,3 +160,9 @@ else
   brew install --cask rectangle
 fi
 
+h1 "Install DBeaver"
+if dir_exists "/Applications/DBeaver.app"; then
+  echo "DBeaver already installed"
+else
+  brew install --cask dbeaver-community
+fi
