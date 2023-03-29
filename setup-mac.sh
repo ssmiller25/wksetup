@@ -160,3 +160,10 @@ else
   brew install --cask rectangle
 fi
 
+h1 "Install Visual Studio Code"
+if dir_exists "/Applications/Visual Studio Code.app"; then
+  echo "VSCode already installed"
+else
+  brew install --cask visual-studio-code
+fi
+
