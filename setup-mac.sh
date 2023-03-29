@@ -173,3 +173,10 @@ if dir_exists "/Applications/DBeaver.app"; then
 else
   brew install --cask dbeaver-community
 fi
+
+h1 "Install Garden.io"
+if cmd_exists garden; then
+  echo "Garden.io exists"
+else
+  brew tap garden-io/garden && brew install garden-cli
+fi
