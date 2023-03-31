@@ -132,11 +132,26 @@ else
   brew install --cask balenaetcher
 fi
 
-h1 "Install Colima"
+h1 "Install Kubernetes Utilties"
 if cmd_exists colima; then
   echo "Colima exists"
 else
-  brew install docker colima kubectl
+  brew install kubectl helm
+fi
+
+h1 "Install Docker for Desktop"
+# Far more efficient than co-lima, espcially for garden.io
+if dir_exists "/Applications/Docker.app"; then
+  echo "Docekr Desktop already installed"
+else
+  brew install --cask docker
+fi
+
+h1 "Install Garden.io"
+if cmd_exists garden; then
+  echo "Garden.io exists"
+else
+  brew tap garden-io/garden && brew install garden-cli
 fi
 
 h1 "Install Slack"
@@ -173,3 +188,4 @@ if dir_exists "/Applications/DBeaver.app"; then
 else
   brew install --cask dbeaver-community
 fi
+
