@@ -125,6 +125,13 @@ else
   brew install nmap
 fi
 
+h1 "Installing ipcalc"
+if cmd_exists ipcalc; then
+  echo "ipcalc exists"
+else
+  brew install ipcalc
+fi
+
 h1 "Install balenaEtcher for USB creation"
 if dir_exists "/Applications/balenaEtcher.app"; then
   echo "Etcher already installed"
@@ -145,13 +152,6 @@ if dir_exists "/Applications/Docker.app"; then
   echo "Docekr Desktop already installed"
 else
   brew install --cask docker
-fi
-
-h1 "Install Garden.io"
-if cmd_exists garden; then
-  echo "Garden.io exists"
-else
-  brew tap garden-io/garden && brew install garden-cli
 fi
 
 h1 "Install Slack"
