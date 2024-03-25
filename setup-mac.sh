@@ -77,6 +77,9 @@ if ! dir_exists "${HOME}/tmp"; then
   mkdir "${HOME}"/tmp
 fi
 
+h1 "Always show display preferences in icon bar"
+defaults write com.apple.systemuiserver "NSStatusItem Visible com.apple.menuextra.displays" -bool true && killall SystemUIServer
+
 h1 "Install brew"
 if cmd_exists brew; then
   echo "Brew already installed"
