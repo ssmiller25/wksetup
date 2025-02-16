@@ -10,7 +10,7 @@
 #set -x
 
 if [ -z "$MYHOSTNAME" ]; then
-  MYHOSTNAME="rory-mac-2023"
+  MYHOSTNAME="rory-mac-2025"
 fi
 
 if [ -z "$MYDOMAIN" ]; then
@@ -100,13 +100,6 @@ else
   brew install --cask iterm2
 fi
 
-h1 "Install Brave"
-if dir_exists "/Applications/Brave Browser.app"; then
-  echo "Brave already installed"
-else
-  brew install cask brave-browser
-fi
-
 h1 "Installing jq"
 if cmd_exists jq; then
   echo "jq exists"
@@ -114,7 +107,7 @@ else
   brew install jq
 fi
 
-h1 "Installing bitwarding"
+h1 "Installing bitwarden"
 if cmd_exists bw; then
   echo "Bitwarden exists"
 else
@@ -143,14 +136,14 @@ else
 fi
 
 h1 "Install Kubernetes Utilties"
-if cmd_exists colima; then
-  echo "Colima exists"
+if cmd_exists kubectl; then
+  echo "Kubernetes Utilities exists"
 else
   brew install kubectl helm
 fi
 
 h1 "Install Docker for Desktop"
-# Far more efficient than co-lima, espcially for garden.io
+# Far more efficient than co-lima
 if dir_exists "/Applications/Docker.app"; then
   echo "Docekr Desktop already installed"
 else
