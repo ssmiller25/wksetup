@@ -185,3 +185,17 @@ else
   brew install --cask dbeaver-community
 fi
 
+h1 "Install gh cli"
+if cmd_exists gh; then
+  echo "Github CLI exists"
+else
+  brew install gh
+fi
+
+h1 "Install Obsidian"
+if dir_exists "/Applications/Obsidian.app; then
+  echo "Obsidian exists"
+else
+  brew install --cask obsidian
+fi
+
