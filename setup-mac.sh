@@ -207,3 +207,10 @@ else
   brew install --cask obsidian
 fi
 
+
+h1 "Install Zoom"
+if dir_exists "/Applications/zoom.us.app; then
+  echo "Zoomexists"
+else
+  brew install --cask zoom
+fi
