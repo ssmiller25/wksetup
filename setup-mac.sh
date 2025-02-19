@@ -192,6 +192,14 @@ else
   brew install gh
 fi
 
+h1 "Install wireguard"
+if cmd_exists wg-quick; then
+  echo "Wireguard exists"
+else
+  brew install wireguard-tools
+fi
+
+
 h1 "Install Obsidian"
 if dir_exists "/Applications/Obsidian.app; then
   echo "Obsidian exists"
