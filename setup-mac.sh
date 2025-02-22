@@ -201,16 +201,38 @@ fi
 
 
 h1 "Install Obsidian"
-if dir_exists "/Applications/Obsidian.app; then
+if dir_exists "/Applications/Obsidian.app"; then
   echo "Obsidian exists"
 else
   brew install --cask obsidian
 fi
 
-
 h1 "Install Zoom"
-if dir_exists "/Applications/zoom.us.app; then
-  echo "Zoomexists"
+if dir_exists "/Applications/zoom.us.app"; then
+  echo "Zoom exists"
 else
   brew install --cask zoom
 fi
+
+h1 "Install Ungoogled Chromium"
+if dir_exists "/Applications/Chromium.app"; then
+  echo "Chromium exists"
+else
+  brew install --cask eloston-chromium
+fi
+
+h1 "Install civo"
+if cmd_exists civo; then
+  echo "Civo CLI exists"
+else
+  brew tap civo/tools
+  brew install civo
+fi
+
+h1 "Install DevPod"
+if cmd_exists devpod; then
+  echo "Devpod exists"
+else
+  brew install --cask devpod
+fi
+
