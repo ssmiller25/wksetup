@@ -245,4 +245,13 @@ else
   brew install --cask podman-desktop
 fi
 
+h1 "Setup VSCode Desktop"
+echo "Follow https://geekingoutpodcast.substack.com/p/running-dev-containers-locally-with"
+# Fro docker-in-docker setups, make sure the following is in the devcontainer.json
+
+# "remoteEnv": {
+#     "PODMAN_USERNS": "keep-id"
+# },
+# "containerUser": "vscode"
+
 
