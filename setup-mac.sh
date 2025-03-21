@@ -142,13 +142,14 @@ else
   brew install kubectl helm
 fi
 
-h1 "Install Docker for Desktop"
-# Far more efficient than co-lima
-if dir_exists "/Applications/Docker.app"; then
-  echo "Docekr Desktop already installed"
-else
-  brew install --cask docker
-fi
+
+# h1 "Install Docker for Desktop"
+# # Far more efficient than co-lima
+# if dir_exists "/Applications/Docker.app"; then
+#   echo "Docekr Desktop already installed"
+# else
+#   brew install --cask docker
+# fi
 
 h1 "Install Slack"
 if dir_exists "/Applications/Slack.app"; then
@@ -235,4 +236,13 @@ if cmd_exists devpod; then
 else
   brew install --cask devpod
 fi
+
+h1 "Install Podman Desktop"
+if cmd_exists podman; then
+  echo "Podman exists"
+else
+  brew install podman
+  brew install --cask podman-desktop
+fi
+
 
