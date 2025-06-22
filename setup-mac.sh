@@ -241,7 +241,7 @@ h1 "Install Podman Desktop"
 if cmd_exists podman; then
   echo "Podman exists"
 else
-  brew install podman
+  brew install podman podman-compose
   brew install --cask podman-desktop
 fi
 
