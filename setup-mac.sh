@@ -255,3 +255,23 @@ echo "Follow https://geekingoutpodcast.substack.com/p/running-dev-containers-loc
 # "containerUser": "vscode"
 
 
+h1 "Install fzf"
+if cmd_exists fzf; then
+  echo "fzf exists"
+else
+  brew install fzf
+fi
+
+h1 "install ripgrep"
+if cmd_exists ripgrep; then
+  echo "ripgrep exists"
+else
+  brew install ripgrep
+fi
+
+h1 "install opencode"
+if cmd_exists opencode; then
+  echo "opencode exists"
+else
+  brew install opencode
+fi
