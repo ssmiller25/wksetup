@@ -273,5 +273,6 @@ h1 "install opencode"
 if cmd_exists opencode; then
   echo "opencode exists"
 else
-  brew install opencode
+  # Brew far older version
+  curl -fsSL https://opencode.ai/install | bash
 fi
