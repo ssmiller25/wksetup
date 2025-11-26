@@ -219,7 +219,7 @@ h1 "Install Ungoogled Chromium"
 if dir_exists "/Applications/Chromium.app"; then
   echo "Chromium exists"
 else
-  brew install --cask eloston-chromium
+    brew install --cask ungoogled-chromium
 fi
 
 h1 "Install civo"
