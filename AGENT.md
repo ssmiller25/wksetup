@@ -9,6 +9,19 @@ This repository contains automated workstation setup scripts designed to bootstr
 - **OUT OF BOX**: Run scripts on fresh OS installations without prerequisites
 - **MINIMAL**: Focus on essential tools; most work happens in cloud or local containers
 - **IDEMPOTENT**: Scripts can be run multiple times safely without side effects
+- **SIMPLE**: Prefer one tool that does one thing well, is immediately understandable, and just works
+
+## Guiding Principles (Terminal Environment)
+
+The target terminal environment is deliberately small and simple:
+
+- **Terminal**: Ghostty with the Monofur Nerd Font
+- **Editor**: Neovim with LazyVim, run inside the terminal
+- **CLI essentials**: `fd`, `ripgrep`, `bat`, `jq`, `yq`
+- **Shell**: zsh
+- **Git**: SSH-signed commits and tags
+
+See `notes/terminal-environment.md` (in the `lifeos/bjournalob` notes repo) for the full rationale.
 
 ## Repository Structure
 
@@ -45,7 +58,9 @@ curl -fsSL https://raw.githubusercontent.com/ssmiller25/wksetup/main/setup-mac.s
 *System Configuration*:
 - Sets hostname and domain
 - Changes default shell to zsh
-- Generates SSH keys (4096-bit)
+- Generates an ed25519 SSH key
+- Configures ssh-agent with macOS keychain (no repeated passphrase prompts)
+- Configures git for opt-in SSH signing of commits and tags
 - Creates ~/tmp directory
 - Configures display preferences in menu bar
 
@@ -53,15 +68,22 @@ curl -fsSL https://raw.githubusercontent.com/ssmiller25/wksetup/main/setup-mac.s
 - Homebrew (with shell environment setup)
 
 *Terminal & CLI Tools*:
-- iTerm2
+- Ghostty (terminal) with Monofur Nerd Font and managed config
 - jq (JSON processor)
+- yq (YAML processor)
+- fd (fast find)
+- ripgrep (fast search)
+- bat (better cat)
+- fzf (fuzzy finder)
 - nmap (network scanner)
 - ipcalc (IP calculator)
-- fzf (fuzzy finder)
-- ripgrep (fast search)
 - gh (GitHub CLI)
 - bitwarden-cli (password manager)
 - opencode (AI code assistant)
+
+*Editor*:
+- Neovim
+- LazyVim starter configuration (~/.config/nvim)
 
 *Development Tools*:
 - Visual Studio Code
@@ -87,8 +109,42 @@ curl -fsSL https://raw.githubusercontent.com/ssmiller25/wksetup/main/setup-mac.s
 **Important Notes**:
 - Script may require multiple runs due to required reboots (especially after hostname changes)
 - Docker Desktop section is commented out; Podman is preferred
+- iTerm2 section is commented out; Ghostty is preferred
 - DevPod setup requires manual configuration (see script comments)
 - Script uses idempotency checks (cmd_exists, dir_exists) before each installation
+
+**Git Commit Signing (manual step)**:
+
+The script configures everything locally, but the signing key must be registered
+with GitHub manually:
+
+```
+GitHub → Settings → SSH and GPG keys → New SSH key → Key type: Signing Key
+```
+
+(A signing key is separate from an auth key, though the same key can do both.)
+
+The script sets the following git configuration:
+
+```sh
+git config --global gpg.format ssh
+git config --global user.signingkey ~/.ssh/id_ed25519.pub
+git config --global gpg.ssh.allowedSignersFile ~/.config/git/allowed_signers
+```
+
+Signing is **opt-in**: the script does not set `commit.gpgsign`/`tag.gpgsign`,
+so sign per command with `git commit -S` or `git tag -s`.
+
+It also appends the key to `~/.config/git/allowed_signers` so tags and commits
+can be verified locally. To verify a signed tag:
+
+```sh
+git tag -s test-signing -m "test signing"
+git verify-tag test-signing          # expect: Good "git" signature
+git tag -d test-signing              # cleanup
+```
+
+GitHub shows a signed tag/commit as **Verified**.
 
 ### setup-popos.sh (Legacy Script)
 
@@ -118,8 +174,8 @@ Shared shell functions used by other scripts:
 
 ### common/setup_ssh
 - `setup_ssh()`:
-  - Checks for the existence of the `~/.ssh` directory.
-  - If the directory does not exist, it generates a new 4096-bit RSA SSH key pair.
+  - Checks for the existence of `${HOME}/.ssh/id_ed25519`.
+  - If the key does not exist, it generates a new ed25519 SSH key pair.
   - Prompts the user to add the new public key to their GitHub/GitLab accounts.
 
 ### common/immutabledesktop
@@ -136,10 +192,12 @@ This script contains functions for setting up an "immutable desktop" environment
 1. User runs curl command to download and execute setup-mac.sh
 2. Script sets hostname (may require reboot)
 3. User re-runs script after reboot
-4. Script installs Homebrew if not present
-5. Script installs all applications and tools
-6. User manually configures specific tools (DevPod, Bitwarden, etc.)
-7. System is ready for toolbox deployment
+4. Script generates an ed25519 SSH key and configures git commit/tag signing
+5. Script installs Homebrew if not present
+6. Script installs all applications and tools, including Ghostty, Neovim/LazyVim, and the streamlined CLI set
+7. User manually registers the SSH key as a signing key on GitHub (see Git Commit Signing)
+8. User manually configures specific tools (DevPod, Bitwarden, etc.)
+9. System is ready for toolbox deployment
 
 ### Pop!_OS Setup Flow
 1. User runs setup-popos.sh
@@ -203,7 +261,8 @@ set -x
 ## Security Considerations
 
 - Scripts download and execute code from GitHub
-- SSH keys are generated with 4096-bit strength
+- SSH keys are generated with ed25519
 - User is prompted to import SSH public keys to GitHub/GitLab
+- Git commits and tags can be signed via SSH (opt-in); the signing key must be registered manually
 - No secrets or credentials stored in repository
 - Scripts run with user permissions (sudo only when required)
