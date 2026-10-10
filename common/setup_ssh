@@ -1,16 +1,16 @@
 #!/bin/sh
 
 setup_ssh() {
-  if dir_exists "${HOME}/.ssh"; then
-    echo "SSH config directory exists, assuming all is setup"
+  if [ -f "${HOME}/.ssh/id_ed25519" ]; then
+    echo "SSH ed25519 key exists, assuming all is setup"
   else
-    echo "Generating security key for this system"
-    ssh-keygen -b 4096
+    echo "Generating ed25519 security key for this system"
+    ssh-keygen -t ed25519 -C "${USER}@$(hostname)"
     echo ""
     echo "Please import the following public keypair into Github and Gitlab"
     echo "before continuing!"
     echo ""
-    cat "${HOME}/.ssh/id_rsa.pub"
+    cat "${HOME}/.ssh/id_ed25519.pub"
     echo ""
     echo "Press enter to continue"
     read -r nothing

@@ -64,12 +64,49 @@ else
 fi
 
 h1 "Setup ssh-key"
-if dir_exists "${HOME}/.ssh"; then
-  echo "SSH config directory exists, assuming all is setup"
+if [ -f "${HOME}/.ssh/id_ed25519" ]; then
+  echo "SSH ed25519 key exists, assuming all is setup"
 else
-  echo "Generating security key for this system"
-  ssh-keygen -b 4096
+  echo "Generating ed25519 security key for this system"
+  ssh-keygen -t ed25519 -C "${USER}@$(hostname)"
 fi
+
+h1 "Configure git SSH commit signing"
+git config --global gpg.format ssh
+git config --global user.signingkey "${HOME}/.ssh/id_ed25519.pub"
+mkdir -p "${HOME}/.config/git"
+if [ -f "${HOME}/.config/git/allowed_signers" ]; then
+  echo "allowed_signers exists"
+else
+  printf '%s %s\n' "$(git config user.email)" "$(cat "${HOME}/.ssh/id_ed25519.pub")" >> "${HOME}/.config/git/allowed_signers"
+fi
+git config --global gpg.ssh.allowedSignersFile "${HOME}/.config/git/allowed_signers"
+echo ""
+echo "Register the public key as a SIGNING key at:"
+echo "  GitHub -> Settings -> SSH and GPG keys -> New SSH key -> Key type: Signing Key"
+echo "  (a signing key is separate from an auth key, though the same key can do both)"
+echo ""
+echo "Public key to register:"
+cat "${HOME}/.ssh/id_ed25519.pub"
+
+h1 "Configure ssh-agent keychain"
+SSH_CONFIG="${HOME}/.ssh/config"
+touch "${SSH_CONFIG}"
+chmod 600 "${SSH_CONFIG}"
+if grep -q "UseKeychain yes" "${SSH_CONFIG}"; then
+  echo "ssh-agent keychain already configured"
+else
+  cat >> "${SSH_CONFIG}" <<'EOF'
+
+Host *
+  AddKeysToAgent yes
+  UseKeychain yes
+  IdentityFile ~/.ssh/id_ed25519
+EOF
+  echo "Added agent/keychain settings to ${SSH_CONFIG}"
+fi
+# Store the passphrase in the macOS keychain so it is not re-prompted each session
+ssh-add --apple-use-keychain "${HOME}/.ssh/id_ed25519" || ssh-add -K "${HOME}/.ssh/id_ed25519" || true
 
 h1 "Setup inital environment"
 if ! dir_exists "${HOME}/tmp"; then
@@ -93,11 +130,39 @@ fi
 
 
 
-h1 "Install iTerm"
-if dir_exists "/Applications/iTerm.app"; then
-  echo "iTerm already installed"
+# h1 "Install iTerm"
+# # Ghostty is the preferred terminal; keeping this here for reference.
+# if dir_exists "/Applications/iTerm.app"; then
+#   echo "iTerm already installed"
+# else
+#   brew install --cask iterm2
+# fi
+
+h1 "Install Ghostty"
+if dir_exists "/Applications/Ghostty.app"; then
+  echo "Ghostty already installed"
 else
-  brew install --cask iterm2
+  brew install --cask ghostty
+fi
+
+h1 "Install Monofur Nerd Font"
+if [ -f "${HOME}/Library/Fonts/MonofurNerdFontMono-Regular.ttf" ]; then
+  echo "Monofur Nerd Font already installed"
+else
+  brew install --cask font-monofur-nerd-font
+fi
+
+h1 "Configure Ghostty"
+GHOSTTY_CONFIG="${HOME}/Library/Application Support/com.mitchellh.ghostty/config.ghostty"
+if [ -f "${GHOSTTY_CONFIG}" ]; then
+  echo "Ghostty config exists"
+else
+  mkdir -p "$(dirname "${GHOSTTY_CONFIG}")"
+  cat > "${GHOSTTY_CONFIG}" <<'EOF'
+font-family = Monofur Nerd Font Mono
+font-size = 18
+EOF
+  echo "Wrote ${GHOSTTY_CONFIG}"
 fi
 
 h1 "Installing jq"
@@ -262,11 +327,47 @@ else
   brew install fzf
 fi
 
+h1 "install fd"
+if cmd_exists fd; then
+  echo "fd exists"
+else
+  brew install fd
+fi
+
 h1 "install ripgrep"
-if cmd_exists ripgrep; then
+if cmd_exists rg; then
   echo "ripgrep exists"
 else
   brew install ripgrep
+fi
+
+h1 "install bat"
+if cmd_exists bat; then
+  echo "bat exists"
+else
+  brew install bat
+fi
+
+h1 "install yq"
+if cmd_exists yq; then
+  echo "yq exists"
+else
+  brew install yq
+fi
+
+h1 "install neovim"
+if cmd_exists nvim; then
+  echo "neovim exists"
+else
+  brew install nvim
+fi
+
+h1 "install LazyVim"
+if dir_exists "${HOME}/.config/nvim"; then
+  echo "Neovim config (LazyVim) exists"
+else
+  git clone https://github.com/LazyVim/starter "${HOME}/.config/nvim"
+  rm -rf "${HOME}/.config/nvim/.git"
 fi
 
 h1 "install opencode"
